@@ -1,6 +1,9 @@
 # Study `Nodejs` `Koa` `React` `Webpack`
 --- 打造一个简单的进销存系统
+
 [![Build Status](https://travis-ci.org/iamcc/study-koa-react-webpack-2.svg)](https://travis-ci.org/iamcc/study-koa-react-webpack-2)
+[![Coverage Status](https://coveralls.io/repos/iamcc/study-koa-react-webpack-2/badge.svg?branch=master&service=github)](https://coveralls.io/github/iamcc/study-koa-react-webpack-2?branch=master)
+
 ## 搭建环境
 ### 工具
 - [Sublime Text 3](http://www.sublimetext.com/3) - 代码编辑器
