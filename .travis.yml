@@ -3,3 +3,5 @@ node_js:
  - 'iojs'
 services:
  - mongodb
+after_script:
+ - 'cat ./coverage/lcov.info | coveralls'
