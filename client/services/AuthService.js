@@ -2,7 +2,7 @@
 * @Author: CC
 * @Date:   2015-08-11 18:47:05
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-13 15:28:54
+* @Last Modified time: 2015-08-18 10:41:34
 */
 
 import $ from 'superagent'
@@ -12,6 +12,6 @@ export default {
   login
 }
 
-function login(username, password, callback) {
-  return $.post('/api/auth/login').send({username, password}).end(callback)
+function login(user, callback) {
+  return $.post('/api/auth/login').send(user).end(callback)
 }

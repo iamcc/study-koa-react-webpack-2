@@ -2,11 +2,12 @@
 * @Author: CC
 * @Date:   2015-08-11 18:17:56
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-13 16:27:38
+* @Last Modified time: 2015-08-18 10:43:24
 */
 
 import Reflux from 'reflux'
 import AuthAction from '../actions/AuthAction'
+import AuthService from '../services/AuthService'
 
 const TOKEN_KEY = 'token'
 
@@ -18,6 +19,8 @@ export default Reflux.createStore({
       loggedIn: false,
       token: '',
       user: false,
+      errors: {},
+      loading: false
     }
     this.state.token = getToken()
     try {
@@ -29,13 +32,31 @@ export default Reflux.createStore({
     }
   },
 
-  onLogin(data) {
+  onLogin(user) {
+    this.reset()
+    this.loading = true
+    this.changed()
+
+    AuthService.login(user, (err, res) => {
+      if (err) return this.onLoginFailed(res.body || res.text)
+      this.onLoginCompleted(res.body)
+    })
+  },
+
+  onLoginCompleted(data) {
     this.reset()
     this.state.token = data.token
     this.state.user = data.user
     this.state.loggedIn = true
     this.changed()
     setToken(data.token)
+  },
+
+  onLoginFailed(err) {
+    this.reset()
+    this.state.errors = err
+    this.changed()
+    setToken('')
   },
 
   onLogout() {
@@ -56,6 +77,8 @@ export default Reflux.createStore({
       loggedIn: false,
       token: '',
       user: false,
+      errors: {},
+      loading: false,
     }
     setToken(this.state.token)
   }

@@ -2,111 +2,68 @@
 * @Author: CC
 * @Date:   2015-08-13 18:23:03
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-14 18:41:35
+* @Last Modified time: 2015-08-18 14:00:29
 */
 
 import React from 'react/addons'
+import Reflux from 'reflux'
 import { Table, message, Popconfirm, Tooltip } from 'antd'
 import { Tag } from 'antd/lib/tag'
 import Admin from '../../components/Admin.jsx'
-import UserService from '../../services/UserService'
+import UserAction from '../../actions/UserAction'
+import UserStore from '../../stores/UserStore'
 
 class UserManagement extends React.Component {
   get columns() {
     return [
-      { key: 'username', title: 'User Name', dataIndex: 'username' },
-      { key: 'role', title: 'Role', dataIndex: 'role' },
-      { key: 'status', title: 'Status', dataIndex: 'status', render: this.renderStatus.bind(this) },
-      { key: 'actions', title: this.renderActionTitle(), dataIndex: '_id', render: this.renderActions.bind(this) }
+      { title: '用户名', dataIndex: 'username' },
+      { title: '角色', dataIndex: 'role' },
+      { title: '状态', dataIndex: 'status', render: this.renderStatus.bind(this) },
+      { title: this.renderActionTitle(), dataIndex: '_id', render: this.renderActions.bind(this) }
     ]
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      dataSource: [],
-      pagination: {
-        onChange: page => {
-          this.loadData({page})
-        }
-      }
+      userStore: UserStore.state
     }
   }
 
+  userStoreChanged(state) {
+    if (state.errors) message.error(state.errors)
+    if (state.success) message.success(state.success)
+    this.setState({userStore: state})
+  }
+
   componentWillMount() {
-    this.loadData()
+    this.unsubscribe = UserStore.listen(this.userStoreChanged.bind(this))
+    UserAction.load()
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
   }
 
   render() {
     return (
-      <Table columns={this.columns} dataSource={this.state.dataSource} pagination={this.state.pagination}/>
-    )
-  }
-
-  loadData(params) {
-    params = params || {}
-    params.limit = this.state.pagination.pageSize
-    UserService.list(params).then(success.bind(this), fail)
-
-    function success(res) {
-      this.state.dataSource = res.body.data
-      this.state.pagination.current = params.page
-      this.state.pagination.total = res.body.total
-      this.setState(this.state)
-    }
-
-    function fail(e) {
-      message.error(e.response.text)
-    }
-  }
-
-  handleChangeStatus(row) {
-    const status = row.status === 1 ? 0 : 1
-
-    UserService.updateStatus({
-      id: row._id,
-      status: status
-    }).then(
-      res => {
-        row.status = status
-        this.forceUpdate()
-      },
-      e => message.error(e.response.text)
-    )
-  }
-
-  handleDelete(row) {
-    UserService.del(row._id).then(
-      res => {
-        this.state.dataSource = this.state.dataSource.filter(row2 => {
-          return row._id !== row2._id
-        })
-        this.forceUpdate()
-      },
-      e => message.error(e.response.text)
-    )
-  }
-
-  handleResetPassword(row) {
-    UserService.resetPassword(row._id).then(
-      res => {},
-      e => message.error(e.response.text)
+      <Table columns={this.columns} dataSource={this.state.userStore.users} pagination={this.state.userStore.pagination}/>
     )
   }
 
   renderStatus(status, row) {
     if (status === 1) return <span style={{color: 'green'}}>
       <i className="anticon anticon-unlock"></i>
-      <span> Normal</span>
+      <span> 正常</span>
     </span>
     return <span style={{color: 'red'}}>
       <i className="anticon anticon-lock"></i>
-      <span> Locked</span>
+      <span> 锁定</span>
     </span>
   }
 
   renderActionTitle() {
-    return <Tooltip title="create new user">
+    return <Tooltip title="创建新用户">
       <button className="ant-btn ant-btn-circle ant-btn-primary" onClick={router.transitionTo.bind(this, 'create-user')}>
         <i className="anticon anticon-plus"></i>
       </button>
@@ -117,14 +74,14 @@ class UserManagement extends React.Component {
     if (row.username === 'admin') return
 
     return <span>
-      <a href="javascript:;" onClick={this.handleChangeStatus.bind(this, row)}>Change Status</a>
+      <a href="javascript:;" onClick={UserAction.updateStatus.bind(null, row)}>更改状态</a>
       <span className="ant-divider"></span>
-      <Popconfirm title="Reset this user's password to 123456???" onConfirm={this.handleResetPassword.bind(this, row)}>
-        <a href="javascript:;" style={{color: 'orange'}}>Reset Password</a>
+      <Popconfirm title="将密码重置为123456？" onConfirm={UserAction.resetPassword.bind(null, row)}>
+        <a href="javascript:;" style={{color: 'orange'}}>重设密码</a>
       </Popconfirm>
       <span className="ant-divider"></span>
-      <Popconfirm title="Delete this user???" onConfirm={this.handleDelete.bind(this, row)}>
-        <a href="javascript:;" style={{color: 'red'}}>Delete</a>
+      <Popconfirm title="删除用户?" onConfirm={UserAction.remove.bind(null, row)}>
+        <a href="javascript:;" style={{color: 'red'}}>删除</a>
       </Popconfirm>
     </span>
   }

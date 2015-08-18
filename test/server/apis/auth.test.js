@@ -2,7 +2,7 @@
 * @Author: CC
 * @Date:   2015-08-11 14:31:51
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-17 15:46:26
+* @Last Modified time: 2015-08-18 09:10:30
 */
 
 describe('test auth api', function () {
@@ -15,35 +15,35 @@ describe('test auth api', function () {
   })
 
   describe('POST /api/auth/login', function () {
-    it('will get `should not be empty`', function (done) {
+    it('will get 400 `用户名必须填写`', function (done) {
       this
         .login({})
         .expect(400)
-        .expect(/should not be empty/)
+        .expect(/用户名必须填写/)
         .end(done)
     })
 
-    it('will get `should not be empty`', function (done) {
+    it('will get 400 `密码必须填写`', function (done) {
       this
         .login({ username: 'admin' })
         .expect(400)
-        .expect(/should not be empty/)
+        .expect(/密码必须填写/)
         .end(done)
     })
 
-    it('will get `not exist`', function (done) {
+    it('will get 400 `用户名不存在`', function (done) {
       this
         .login({ username: 'notexist', password: 'notexist' })
         .expect(400)
-        .expect(/not exist/)
+        .expect(/用户名不存在/)
         .end(done)
     })
 
-    it('will get `invalid password`', function (done) {
+    it('will get 400 `密码错误`', function (done) {
       this
         .login({ username: 'admin', password: 'wrong' })
         .expect(400)
-        .expect(/invalid password/)
+        .expect(/密码错误/)
         .end(done)
     })
 

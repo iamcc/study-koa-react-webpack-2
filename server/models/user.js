@@ -2,7 +2,7 @@
 * @Author: CC
 * @Date:   2015-08-11 12:45:17
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-17 16:35:43
+* @Last Modified time: 2015-08-18 09:08:33
 */
 'use strict'
 
@@ -41,13 +41,15 @@ function md5(str) {
 function preSave(next) {
   let errors = {}
 
-  if (!this.username || this.username.length < 3) errors.username = 'username should be at least 3 characters'
-  if (!this.password || this.password.length < 6) errors.password = 'password should be at least 6 characters'
-  if (!~['admin', 'sales'].indexOf(this.role)) errors.role = 'invalid role'
-  if (!~[0, 1].indexOf(this.status)) errors.status = 'invalid status'
+  if (!this.username || this.username.length < 3) errors.username = '用户名至少3位数'
+  if (!this.password || this.password.length < 6) errors.password = '密码至少6位数'
+  if (!~['admin', 'sales'].indexOf(this.role)) errors.role = '角色不存在'
+  if (!~[0, 1].indexOf(this.status)) errors.status = '状态不存在'
   if (!!Object.keys(errors).length) {
     const err = new Error('ValidationError')
-    err.errors = errors
+    for (const k in errors) {
+      err[k] = errors[k]
+    }
     return next(err)
   }
 
@@ -61,8 +63,7 @@ function preSave(next) {
 
       if (!!user) {
         const err = new Error('ValidationError')
-        errors.username = 'username has be existed'
-        err.errors = errors
+        err.username = '用户名已存在'
         next (err)
       } else {
         next()

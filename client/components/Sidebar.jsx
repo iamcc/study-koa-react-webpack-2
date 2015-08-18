@@ -2,7 +2,7 @@
 * @Author: CC
 * @Date:   2015-08-12 19:31:34
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-14 18:37:39
+* @Last Modified time: 2015-08-18 13:55:08
 */
 
 import React from 'react'
@@ -27,16 +27,16 @@ export default Auth(class Sidebar extends React.Component {
     const menu = (
       <Menu onClick={onMenuClick}>
         <Menu.Item key="modify-password">
-          <a href="javascript:;">Modify Password</a>
+          <a href="javascript:;">修改密码</a>
         </Menu.Item>
         {this.props.user.role === 'admin'
           ? <Menu.Item key="manage">
-              <a href="javascript:;">Manage</a>
+              <a href="javascript:;">管理</a>
             </Menu.Item>
           : <div></div>}
         <Menu.Divider/>
         <Menu.Item key="logout">
-          <a href="javascript:;">Logout</a>
+          <a href="javascript:;">登出</a>
         </Menu.Item>
       </Menu>
     )
@@ -53,13 +53,13 @@ export default Auth(class Sidebar extends React.Component {
         </div>
         <ul id="menu">
           <li>
-            <Link to="/order">Order</Link>
+            <Link to="/order">订单</Link>
           </li>
           <li>
-            <Link to="/stock">Stock</Link>
+            <Link to="/stock">库存</Link>
           </li>
           <li>
-            <Link to="/supplier">Supplier</Link>
+            <Link to="/supplier">供应商</Link>
           </li>
         </ul>
       </aside>

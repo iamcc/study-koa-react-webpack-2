@@ -2,7 +2,7 @@
 * @Author: CC
 * @Date:   2015-08-14 10:45:32
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-17 16:36:45
+* @Last Modified time: 2015-08-18 09:16:33
 */
 
 const jwt = require('koa-jwt')
@@ -109,64 +109,64 @@ describe('test user api', function () {
   })
 
   describe('PUT /api/user?act=updatePassword', function () {
-    it('will get 400 `at least 6 characters` without oldPwd', function (done) {
+    it('will get 400 `密码至少6位数` without oldPwd', function (done) {
       this.req
         .put('/api/user')
         .set('Authorization', salesToken)
         .query({act: 'updatePassword'})
         .send({})
         .expect(400)
-        .expect(/at least 6 characters/, done)
+        .expect(/密码至少6位数/, done)
     })
 
-    it('will get 400 `at least 6 characters` with oldPwd 111', function (done) {
+    it('will get 400 `密码至少6位数` with oldPwd 111', function (done) {
       this.req
         .put('/api/user')
         .set('Authorization', salesToken)
         .query({act: 'updatePassword'})
         .send({oldPwd: 111})
         .expect(400)
-        .expect(/at least 6 characters/, done)
+        .expect(/密码至少6位数/, done)
     })
 
-    it('will get 400 `at least 6 characters` without newPwd', function (done) {
+    it('will get 400 `密码至少6位数` without newPwd', function (done) {
       this.req
         .put('/api/user')
         .set('Authorization', salesToken)
         .query({act: 'updatePassword'})
         .send({})
         .expect(400)
-        .expect(/at least 6 characters/, done)
+        .expect(/密码至少6位数/, done)
     })
 
-    it('will get 400 `at least 6 characters` with newPwd 111', function (done) {
+    it('will get 400 `密码至少6位数` with newPwd 111', function (done) {
       this.req
         .put('/api/user')
         .set('Authorization', salesToken)
         .query({act: 'updatePassword'})
         .send({newPwd: 111})
         .expect(400)
-        .expect(/at least 6 characters/, done)
+        .expect(/密码至少6位数/, done)
     })
 
-    it('will get 404 `not exist` with fake notexist token', function (done) {
+    it('will get 404 `用户不存在` with fake notexist token', function (done) {
       this.req
         .put('/api/user')
         .set('Authorization', notexistToken)
         .query({act: 'updatePassword'})
         .send({oldPwd: '111111', newPwd: '222222'})
         .expect(404)
-        .expect(/not exist/, done)
+        .expect(/用户不存在/, done)
     })
 
-    it('will get 400 `invalid password` with wrong oldPwd', function (done) {
+    it('will get 400 `密码错误` with wrong oldPwd', function (done) {
       this.req
         .put('/api/user')
         .set('Authorization', salesToken)
         .query({act: 'updatePassword'})
         .send({oldPwd: '111111', newPwd: '222222'})
         .expect(400)
-        .expect(/invalid password/, done)
+        .expect(/密码错误/, done)
     })
 
     it('will get 200', function (done) {
@@ -284,39 +284,40 @@ describe('test user api', function () {
         .expect(403, done)
     })
 
-    it('will get 400 for create user without password', function (done) {
+    it('will get 400 密码至少6位数 for create user without password', function (done) {
       this.req
         .post('/api/user')
         .set('Authorization', adminToken)
         .send({username: 'nopassword', role: 'sales'})
-        .expect(400, done)
+        .expect(400)
+        .expect(/密码至少6位数/, done)
     })
 
-    it('will get 400 user existed for create the username of admin', function (done) {
+    it('will get 400 用户名已存在 for create the username of admin', function (done) {
       this.req
         .post('/api/user')
         .set('Authorization', adminToken)
         .send({username: 'admin', password: '123456', role: 'sales'})
         .expect(400)
-        .expect(/existed/, done)
+        .expect(/用户名已存在/, done)
     })
 
-    it('will get 400 `should be at least 3 characters` for create sales named cc', function (done) {
+    it('will get 400 `用户名至少3位数` for create sales named cc', function (done) {
       this.req
         .post('/api/user')
         .set('Authorization', adminToken)
         .send({username: 'cc', password: '123456', role: 'sales'})
         .expect(400)
-        .expect(/should be at least 3 characters/, done)
+        .expect(/用户名至少3位数/, done)
     })
 
-    it('will get 400 `invalid role` for create sales with the invalid role', function (done) {
+    it('will get 400 `角色不存在` for create sales with the invalid role', function (done) {
       this.req
         .post('/api/user')
         .set('Authorization', adminToken)
         .send({username: 'cc', password: '123456', role: 'invalidrole'})
         .expect(400)
-        .expect(/invalid role/, done)
+        .expect(/角色不存在/, done)
     })
 
     it('will get 200 for create sales named ccc', function (done) {
