@@ -2,7 +2,7 @@
 * @Author: CC
 * @Date:   2015-08-11 15:02:57
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-13 10:08:53
+* @Last Modified time: 2015-08-19 10:21:44
 */
 
 'use strict'
@@ -15,7 +15,6 @@ module.exports = {
     app: (process.env.NODE_ENV === 'prod'
       ? './client/index.js'
       : [
-        'webpack-dev-server/client?http://127.0.0.1:3001',
         'webpack/hot/dev-server',
         './client/index.js'
       ]
@@ -30,13 +29,14 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'assets'),
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'prod' ? '/' : 'http://127.0.0.1:3001/'
+    publicPath: ''
   },
   devServer: {
     hot: true,
     port: 3001,
     historyApiFallback: true,
-    publicPath: 'http://127.0.0.1:3001/'
+    publicPath: '',
+    conttentBase: 'assets/'
   },
   resolve: {
     modulesDirectories: ['node_modules', 'client']

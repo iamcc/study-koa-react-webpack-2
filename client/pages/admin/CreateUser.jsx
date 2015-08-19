@@ -2,13 +2,13 @@
 * @Author: CC
 * @Date:   2015-08-14 13:16:41
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-14 16:29:32
+* @Last Modified time: 2015-08-19 10:09:28
 */
 
 import React from 'react/addons'
 import { message, Select } from 'antd'
 import Admin from '../../components/Admin.jsx'
-import UserService from '../../services/UserService'
+import UserService from '../../services/user'
 
 class CreateUser extends React.Component {
   constructor() {

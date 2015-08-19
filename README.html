@@ -1016,6 +1016,8 @@ body .markdown-body
 }
 </style><title>README</title></head><body><article class="markdown-body"><h1 id="study-nodejs-koa-react-webpack"><a name="user-content-study-nodejs-koa-react-webpack" href="#study-nodejs-koa-react-webpack" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Study <code>Nodejs</code> <code>Koa</code> <code>React</code> <code>Webpack</code></h1>
 <p>&mdash; 打造一个简单的进销存系统</p>
+<p><a href="https://travis-ci.org/iamcc/study-koa-react-webpack-2"><img alt="Build Status" src="https://travis-ci.org/iamcc/study-koa-react-webpack-2.svg" /></a><br />
+<a href="https://coveralls.io/github/iamcc/study-koa-react-webpack-2?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/iamcc/study-koa-react-webpack-2/badge.svg?branch=master&amp;service=github" /></a></p>
 <h2 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>搭建环境</h2>
 <h3 id="_2"><a name="user-content-_2" href="#_2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>工具</h3>
 <ul>
@@ -1070,6 +1072,7 @@ body .markdown-body
 <li>登录功能</li>
 <li>首页Layout</li>
 <li>用户功能</li>
+<li>供应商管理</li>
 <li>测试功能，测试覆盖</li>
 </ul>
 <h2 id="_7"><a name="user-content-_7" href="#_7" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>目录结构</h2>
@@ -1079,8 +1082,10 @@ body .markdown-body
 │   └── index.html
 ├── client
 │   ├── actions
-│   │   ├── AuthAction.js
-│   │   └── UserAction.js
+│   │   ├── auth.js
+│   │   ├── customer.js
+│   │   ├── supplier.js
+│   │   └── user.js
 │   ├── app.less
 │   ├── components
 │   │   ├── Admin.jsx
@@ -1092,37 +1097,48 @@ body .markdown-body
 │   │   ├── App.jsx
 │   │   ├── Login.jsx
 │   │   ├── admin
+│   │   │   ├── CostManagement.jsx
 │   │   │   ├── CreateUser.jsx
 │   │   │   ├── Manage.jsx
-│   │   │   ├── StockManagement.jsx
 │   │   │   └── UserManagement.jsx
+│   │   ├── customer
+│   │   │   └── index.jsx
 │   │   ├── order
 │   │   │   └── Index.jsx
 │   │   ├── stock
 │   │   │   └── Index.jsx
 │   │   ├── supplier
-│   │   │   └── Index.jsx
+│   │   │   ├── Index.jsx
+│   │   │   └── NewModal.jsx
 │   │   └── user
 │   │       └── ModifyPassword.jsx
 │   ├── routes.jsx
 │   ├── services
-│   │   ├── AuthService.js
-│   │   ├── UserService.js
+│   │   ├── auth.js
+│   │   ├── supplier.js
 │   │   ├── token.js
+│   │   ├── user.js
 │   │   └── util.js
 │   └── stores
-│       └── AuthStore.js
+│       ├── auth.js
+│       ├── customer.js
+│       ├── supplier.js
+│       ├── user.js
+│       └── util.js
 ├── index.js
 ├── package.json
 ├── server
 │   ├── apis
 │   │   ├── auth.js
 │   │   ├── index.js
+│   │   ├── supplier.js
 │   │   └── user.js
 │   ├── config.js
 │   ├── index.js
 │   └── models
+│       ├── customer.js
 │       ├── init.js
+│       ├── supplier.js
 │       ├── user.js
 │       └── util.js
 ├── test
@@ -1130,6 +1146,7 @@ body .markdown-body
 │   └── server
 │       ├── apis
 │       │   ├── auth.test.js
+│       │   ├── supplier.test.js
 │       │   └── user.test.js
 │       ├── bootstrap.js
 │       ├── index.test.js

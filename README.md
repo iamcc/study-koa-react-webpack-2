@@ -57,6 +57,7 @@
 - 登录功能
 - 首页Layout
 - 用户功能
+- 供应商管理
 - 测试功能，测试覆盖
 
 ## 目录结构
@@ -67,8 +68,10 @@
 │   └── index.html
 ├── client
 │   ├── actions
-│   │   ├── AuthAction.js
-│   │   └── UserAction.js
+│   │   ├── auth.js
+│   │   ├── customer.js
+│   │   ├── supplier.js
+│   │   └── user.js
 │   ├── app.less
 │   ├── components
 │   │   ├── Admin.jsx
@@ -80,37 +83,48 @@
 │   │   ├── App.jsx
 │   │   ├── Login.jsx
 │   │   ├── admin
+│   │   │   ├── CostManagement.jsx
 │   │   │   ├── CreateUser.jsx
 │   │   │   ├── Manage.jsx
-│   │   │   ├── StockManagement.jsx
 │   │   │   └── UserManagement.jsx
+│   │   ├── customer
+│   │   │   └── index.jsx
 │   │   ├── order
 │   │   │   └── Index.jsx
 │   │   ├── stock
 │   │   │   └── Index.jsx
 │   │   ├── supplier
-│   │   │   └── Index.jsx
+│   │   │   ├── Index.jsx
+│   │   │   └── NewModal.jsx
 │   │   └── user
 │   │       └── ModifyPassword.jsx
 │   ├── routes.jsx
 │   ├── services
-│   │   ├── AuthService.js
-│   │   ├── UserService.js
+│   │   ├── auth.js
+│   │   ├── supplier.js
 │   │   ├── token.js
+│   │   ├── user.js
 │   │   └── util.js
 │   └── stores
-│       └── AuthStore.js
+│       ├── auth.js
+│       ├── customer.js
+│       ├── supplier.js
+│       ├── user.js
+│       └── util.js
 ├── index.js
 ├── package.json
 ├── server
 │   ├── apis
 │   │   ├── auth.js
 │   │   ├── index.js
+│   │   ├── supplier.js
 │   │   └── user.js
 │   ├── config.js
 │   ├── index.js
 │   └── models
+│       ├── customer.js
 │       ├── init.js
+│       ├── supplier.js
 │       ├── user.js
 │       └── util.js
 ├── test
@@ -118,6 +132,7 @@
 │   └── server
 │       ├── apis
 │       │   ├── auth.test.js
+│       │   ├── supplier.test.js
 │       │   └── user.test.js
 │       ├── bootstrap.js
 │       ├── index.test.js

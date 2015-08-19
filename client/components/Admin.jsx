@@ -2,11 +2,11 @@
 * @Author: CC
 * @Date:   2015-08-13 10:42:48
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-14 16:24:27
+* @Last Modified time: 2015-08-19 10:09:05
 */
 
 import React from 'react'
-import AuthStore from '../stores/AuthStore'
+import AuthStore from '../stores/auth'
 
 export default Component => {
   return class Admin extends React.Component {

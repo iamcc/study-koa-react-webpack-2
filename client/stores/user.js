@@ -2,48 +2,33 @@
 * @Author: CC
 * @Date:   2015-08-18 10:45:30
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-18 13:44:06
+* @Last Modified time: 2015-08-19 10:53:44
 */
 
 import Reflux from 'reflux'
-import UserAction from '../actions/UserAction'
-import UserService from '../services/UserService'
+import UserAction from '../actions/user'
+import UserService from '../services/user'
+import util from './util'
 
 export default Reflux.createStore({
   listenables: UserAction,
 
   init() {
     this.state = {
-      users: [],
+      data: [],
       pagination: {
+        pageSize: 1,
         onChange: page => {
           this.onLoad({page})
         }
       },
-      errors: false,
+      error: false,
       success: false
     }
   },
 
   onLoad(params) {
-    this.state.errors = false
-    this.state.success = false
-
-    params = params || {}
-    params.page = params.page || this.state.pagination.current
-    params.limit = this.state.pagination.pageSize
-
-    UserService.list(params, (err, res) => {
-      if (err) {
-        this.state.errors = res.text
-      }
-      else {
-        this.state.users = res.body.data
-        this.state.pagination.current = params.page || 1
-        this.state.pagination.total = res.body.total
-      }
-      this.changed()
-    })
+    util.loadPage(params, this.state, UserService, this.changed)
   },
 
   onUpdateStatus(row) {

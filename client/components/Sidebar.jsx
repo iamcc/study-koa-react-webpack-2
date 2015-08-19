@@ -2,13 +2,13 @@
 * @Author: CC
 * @Date:   2015-08-12 19:31:34
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-18 13:55:08
+* @Last Modified time: 2015-08-19 10:09:18
 */
 
 import React from 'react'
 import { Link } from 'react-router'
 import { Menu, Dropdown } from 'antd'
-import AuthAction from '../actions/AuthAction'
+import AuthAction from '../actions/auth'
 import Auth from '../components/Auth.jsx'
 
 export default Auth(class Sidebar extends React.Component {
@@ -57,6 +57,9 @@ export default Auth(class Sidebar extends React.Component {
           </li>
           <li>
             <Link to="/stock">库存</Link>
+          </li>
+          <li>
+            <Link to="/customer">客户</Link>
           </li>
           <li>
             <Link to="/supplier">供应商</Link>

@@ -2,7 +2,7 @@
 * @Author: CC
 * @Date:   2015-08-11 12:45:17
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-18 09:08:33
+* @Last Modified time: 2015-08-19 11:12:22
 */
 'use strict'
 
@@ -47,9 +47,7 @@ function preSave(next) {
   if (!~[0, 1].indexOf(this.status)) errors.status = '状态不存在'
   if (!!Object.keys(errors).length) {
     const err = new Error('ValidationError')
-    for (const k in errors) {
-      err[k] = errors[k]
-    }
+    err.error = errors
     return next(err)
   }
 
@@ -63,7 +61,7 @@ function preSave(next) {
 
       if (!!user) {
         const err = new Error('ValidationError')
-        err.username = '用户名已存在'
+        err.error = { username: '用户名已存在' }
         next (err)
       } else {
         next()

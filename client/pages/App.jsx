@@ -2,12 +2,12 @@
 * @Author: CC
 * @Date:   2015-08-11 18:11:22
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-13 12:24:05
+* @Last Modified time: 2015-08-19 10:10:38
 */
 
 import React from 'react'
 import { RouteHandler } from 'react-router'
-import AuthStore from '../stores/AuthStore'
+import AuthStore from '../stores/auth'
 import Sidebar from '../components/Sidebar.jsx'
 
 export default class App extends React.Component {

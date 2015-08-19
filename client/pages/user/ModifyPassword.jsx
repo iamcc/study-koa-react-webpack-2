@@ -2,13 +2,13 @@
 * @Author: CC
 * @Date:   2015-08-13 10:42:16
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-18 13:56:50
+* @Last Modified time: 2015-08-19 10:10:30
 */
 
 import React from 'react/addons'
 import { message } from 'antd'
 import Auth from '../../components/Auth.jsx'
-import UserService from '../../services/UserService'
+import UserService from '../../services/user'
 
 const style = {
   form: {

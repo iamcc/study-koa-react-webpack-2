@@ -2,15 +2,14 @@
 * @Author: CC
 * @Date:   2015-08-11 18:05:12
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-18 14:01:43
+* @Last Modified time: 2015-08-19 10:10:58
 */
 
 import React from 'react/addons'
 import Reflux from 'reflux'
 import { message } from 'antd'
-import AuthAction from '../actions/AuthAction'
-import AuthStore from '../stores/AuthStore'
-import AuthService from '../services/AuthService'
+import AuthAction from '../actions/auth'
+import AuthStore from '../stores/auth'
 
 export default class Login extends React.Component {
   static willTransitionTo(transition) {

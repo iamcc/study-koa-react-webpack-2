@@ -2,7 +2,7 @@
 * @Author: CC
 * @Date:   2015-08-11 18:00:38
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-14 13:27:30
+* @Last Modified time: 2015-08-19 15:34:02
 */
 
 import React from 'react'
@@ -11,6 +11,7 @@ import App from './pages/App.jsx'
 import Login from './pages/Login.jsx'
 import OrderIndex from './pages/order/Index.jsx'
 import StockIndex from './pages/stock/Index.jsx'
+import CustomerIndex from './pages/customer/Index.jsx'
 import SupplierIndex from './pages/supplier/Index.jsx'
 import UserModifyPassword from './pages/user/ModifyPassword.jsx'
 import AdminManage from './pages/admin/Manage.jsx'
@@ -21,7 +22,10 @@ const routes = (
     <Route name="app" path="/" handler={App}>
       <Route name="order" handler={OrderIndex}></Route>
       <Route name="stock" handler={StockIndex}></Route>
-      <Route name="supplier" handler={SupplierIndex}></Route>
+      <Route name="customer" handler={CustomerIndex}></Route>
+      <Route name="supplier">
+        <DefaultRoute handler={SupplierIndex}></DefaultRoute>
+      </Route>
       <Route name="user">
         <Route name="modify-password" handler={UserModifyPassword}></Route>
       </Route>

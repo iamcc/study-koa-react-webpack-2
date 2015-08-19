@@ -2,38 +2,28 @@
 * @Author: CC
 * @Date:   2015-08-13 18:23:03
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-18 14:00:29
+* @Last Modified time: 2015-08-19 10:53:27
 */
 
 import React from 'react/addons'
 import Reflux from 'reflux'
 import { Table, message, Popconfirm, Tooltip } from 'antd'
-import { Tag } from 'antd/lib/tag'
 import Admin from '../../components/Admin.jsx'
-import UserAction from '../../actions/UserAction'
-import UserStore from '../../stores/UserStore'
+import UserAction from '../../actions/user'
+import UserStore from '../../stores/user'
 
 class UserManagement extends React.Component {
-  get columns() {
-    return [
-      { title: '用户名', dataIndex: 'username' },
-      { title: '角色', dataIndex: 'role' },
-      { title: '状态', dataIndex: 'status', render: this.renderStatus.bind(this) },
-      { title: this.renderActionTitle(), dataIndex: '_id', render: this.renderActions.bind(this) }
-    ]
-  }
-
   constructor(props) {
     super(props)
     this.state = {
-      userStore: UserStore.state
+      userState: UserStore.state
     }
   }
 
-  userStoreChanged(state) {
-    if (state.errors) message.error(state.errors)
-    if (state.success) message.success(state.success)
-    this.setState({userStore: state})
+  userStoreChanged(userState) {
+    if (userState.errors) message.error(userState.errors)
+    if (userState.success) message.success(userState.success)
+    this.setState({userState})
   }
 
   componentWillMount() {
@@ -46,9 +36,20 @@ class UserManagement extends React.Component {
   }
 
   render() {
+    const uState = this.state.userState
+
     return (
-      <Table columns={this.columns} dataSource={this.state.userStore.users} pagination={this.state.userStore.pagination}/>
+      <Table columns={this.columns} dataSource={uState.data} pagination={uState.pagination}/>
     )
+  }
+
+  get columns() {
+    return [
+      { title: '用户名', dataIndex: 'username' },
+      { title: '角色', dataIndex: 'role' },
+      { title: '状态', dataIndex: 'status', render: this.renderStatus.bind(this) },
+      { title: this.renderActionTitle(), dataIndex: '_id', render: this.renderActions.bind(this) }
+    ]
   }
 
   renderStatus(status, row) {

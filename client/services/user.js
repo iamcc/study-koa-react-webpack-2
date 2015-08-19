@@ -2,7 +2,7 @@
 * @Author: CC
 * @Date:   2015-08-13 11:44:20
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-18 13:42:20
+* @Last Modified time: 2015-08-19 10:54:12
 */
 
 import $ from 'superagent'
@@ -10,7 +10,7 @@ import token from './token'
 
 export default {
   modifyPassword,
-  list,
+  load,
   updateStatus,
   remove,
   resetPassword,
@@ -21,7 +21,7 @@ function modifyPassword(oldPwd, newPwd, callback) {
   $.put('/api/user?act=updatePassword').use(token).send({oldPwd, newPwd}).end(callback)
 }
 
-function list(params, callback) {
+function load(params, callback) {
   return $.get('/api/user').use(token).query(params).end(callback)
 }
 

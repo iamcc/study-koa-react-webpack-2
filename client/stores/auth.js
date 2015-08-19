@@ -2,12 +2,12 @@
 * @Author: CC
 * @Date:   2015-08-11 18:17:56
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-18 10:43:24
+* @Last Modified time: 2015-08-19 10:11:12
 */
 
 import Reflux from 'reflux'
-import AuthAction from '../actions/AuthAction'
-import AuthService from '../services/AuthService'
+import AuthAction from '../actions/auth'
+import AuthService from '../services/auth'
 
 const TOKEN_KEY = 'token'
 

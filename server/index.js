@@ -2,7 +2,7 @@
 * @Author: CC
 * @Date:   2015-08-10 17:42:08
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-18 09:03:35
+* @Last Modified time: 2015-08-19 12:04:44
 */
 'use strict'
 
@@ -14,6 +14,7 @@ const jwt = require('koa-jwt')({ secret: config.jwtSecret }).unless({
   path: [
     /^\/api\/auth/,
     /^\/favicon\.ico/,
+    /^\/.*\.js/,
   ]
 })
 
@@ -38,8 +39,15 @@ function *handleError(next) {
   try {
     yield next
   } catch(e) {
-    if (e.message === 'ValidationError' || e.status === 400) {
+    if (e.message === 'ValidationError') {
       this.status = 400
+      this.body = e.error
+      return
+    }
+
+    if (e.status === 400) {
+      this.status = 400
+      this.type = 'json'
       this.body = e
       return
     }
