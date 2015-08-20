@@ -58,6 +58,7 @@
 - 首页Layout
 - 用户功能
 - 供应商管理
+- 客户管理
 - 测试功能，测试覆盖
 
 ## 目录结构
@@ -88,6 +89,7 @@
 │   │   │   ├── Manage.jsx
 │   │   │   └── UserManagement.jsx
 │   │   ├── customer
+│   │   │   ├── NewModal.jsx
 │   │   │   └── index.jsx
 │   │   ├── order
 │   │   │   └── Index.jsx
@@ -101,6 +103,7 @@
 │   ├── routes.jsx
 │   ├── services
 │   │   ├── auth.js
+│   │   ├── customer.js
 │   │   ├── supplier.js
 │   │   ├── token.js
 │   │   ├── user.js
@@ -116,6 +119,7 @@
 ├── server
 │   ├── apis
 │   │   ├── auth.js
+│   │   ├── customer.js
 │   │   ├── index.js
 │   │   ├── supplier.js
 │   │   └── user.js
@@ -132,6 +136,7 @@
 │   └── server
 │       ├── apis
 │       │   ├── auth.test.js
+│       │   ├── customer.test.js
 │       │   ├── supplier.test.js
 │       │   └── user.test.js
 │       ├── bootstrap.js
@@ -159,12 +164,12 @@ npm run dev
 
 服务端代码测试
 ```
-npm run test-server
+npm test
 ```
 
 服务端代码测试覆盖率
 ```
-npm run cov-server
+npm run test-cov
 ```
 
 ```

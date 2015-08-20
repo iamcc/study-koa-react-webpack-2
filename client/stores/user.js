@@ -2,7 +2,7 @@
 * @Author: CC
 * @Date:   2015-08-18 10:45:30
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-19 10:53:44
+* @Last Modified time: 2015-08-20 12:34:58
 */
 
 import Reflux from 'reflux'
@@ -17,10 +17,7 @@ export default Reflux.createStore({
     this.state = {
       data: [],
       pagination: {
-        pageSize: 1,
-        onChange: page => {
-          this.onLoad({page})
-        }
+        onChange: page => this.onLoad({page})
       },
       error: false,
       success: false

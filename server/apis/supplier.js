@@ -2,8 +2,9 @@
 * @Author: CC
 * @Date:   2015-08-19 10:37:17
 * @Last Modified by:   CC
-* @Last Modified time: 2015-08-19 18:26:15
+* @Last Modified time: 2015-08-19 19:21:27
 */
+'use strict'
 
 const mongoose = require('mongoose')
 const SupplierModel = require('../models/supplier')
@@ -35,7 +36,7 @@ function *handleUpdate(next) {
   delete body._id
   delete body.code
 
-  for (var k in body) {
+  for (let k in body) {
     supplier[k] = body[k]
   }
   this.body = yield supplier.save()
